@@ -13,4 +13,8 @@
 
 
 def is_polyndrom(n: int) -> int:
-    pass
+    strN = str(n)
+    if strN == strN[::-1]:
+        res = sorted(set(list(strN)))[-1]
+        return int(res) + 1 if res.isdigit() else chr('A') - chr(res) + 11
+    return 0
