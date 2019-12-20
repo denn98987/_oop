@@ -13,8 +13,24 @@
 
 
 def is_polyndrom(n: int) -> int:
-    strN = str(n)
-    if strN == strN[::-1]:
-        res = sorted(set(list(strN)))[-1]
-        return int(res) + 1 if res.isdigit() else chr('A') - chr(res) + 11
+    for x in range(2, 37):
+        strN = str(convert_base(n, to_base=x))
+        if strN == strN[::-1]:
+            return x
     return 0
+
+
+def convert_base(num, to_base=10, from_base=10):
+    # first convert to decimal number
+    if isinstance(num, str):
+        n = int(num, from_base)
+    else:
+        n = int(num)
+    # now convert decimal to 'to_base' base
+    alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if n < to_base:
+        return alphabet[n]
+    else:
+        return convert_base(n // to_base, to_base) + alphabet[n % to_base]
+
+print(is_polyndrom(4))
